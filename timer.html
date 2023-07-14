@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown timer</title>
+    <link rel="stylesheet" href="./timer.css">
+</head>
+<body>
+  <h1>Countdown Timer</h1>
+  <div id="timer">00:03:00</div>
+  <button onclick="startTimer()">Start</button>
+  <button onclick="stopTimer()">Stop</button>
+  <button onclick="resetTimer()">Reset</button>
+  
+  <script>
+    var countdown;
+    var time = 180; // Set the initial time in seconds
+    
+    function startTimer() {
+      clearInterval(countdown);
+      countdown = setInterval(updateTimer, 1000);
+    }
+    
+    function updateTimer() {
+      var minutes = Math.floor(time / 60);
+      var seconds = time % 60;
+      var hours = Math.floor(minutes / 60);
+      minutes %= 60;
+      
+      document.getElementById("timer").innerHTML = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds);
+      
+      if (time <= 0) {
+        clearInterval(countdown);
+      } else {
+        time--;
+      }
+    }
+    
+    function stopTimer() {
+      clearInterval(countdown);
+    }
+    
+    function resetTimer() {
+      clearInterval(countdown);
+      time = 180;
+      document.getElementById("timer").innerHTML = "00:00:00";
+    }
+    
+    function pad(num) {
+      return String(num).padStart(2, '0');
+    }
+  </script>
+</body>
+</html>
+
